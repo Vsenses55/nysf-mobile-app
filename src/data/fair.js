@@ -196,24 +196,32 @@ export const NEWS = [
 ];
 
 // ---- Interactive map ---------------------------------------------------------
-// Hotspots sit over the pins baked into the map illustration. x/y are the pin
-// head centres as a percentage of the 430×698 image.
-export const MAP_CATEGORIES = ['All Categories', 'Food & Drink', 'Exhibits', 'Entertainment', 'Amenities'];
+// Pins on the full map illustration (Map_Design.jpg). x/y are the pin's point
+// as a percentage of the image. kind 'number' = coloured teardrop with a
+// number; kind 'amenity' = navy pin with an icon (see components/MapPin.jsx).
+export const MAP_CATEGORIES = ['All Categories', 'Food & Drink', 'Exhibits', 'Entertainment', 'Amenities', 'Parking'];
 
 export const MAP_PINS = [
-  { id: 'p11', label: '11', x: 28.4, y: 16.5, category: 'Exhibits', title: 'Horticulture Building', body: 'Flower and garden competitions, the Maple Booth and New York-grown produce displays.' },
-  { id: 'p19', label: '19', x: 49.1, y: 22.3, category: 'Exhibits', title: 'Center of Progress', body: 'The Fair’s largest exhibit hall: vendors, Taste NY samples and the Dairy Products Competition.' },
-  { id: 'p36', label: '36', x: 89.8, y: 27.4, category: 'Entertainment', title: 'Suburban Park Stage', body: 'Evening concerts in the Chevrolet Music Series and daytime grounds entertainment.' },
-  { id: 'p27', label: '27', x: 36.0, y: 38.4, category: 'Food & Drink', title: '1911 Established Beak & Skiff', body: '1911 Hard Ciders, spirits and wine. NYS labeled craft beers. Food including smoked meats, burgers and fries. Apple cider donuts.' },
-  { id: 'p38', label: '38', x: 9.3, y: 53.9, category: 'Exhibits', title: 'Dairy Products Building', body: 'Home of the famous Butter Sculpture and the 25-cent milk bar.' },
-  { id: 'p15', label: '15', x: 81.2, y: 55.2, category: 'Entertainment', title: 'Chevy Court', body: 'The main stage of the Chevrolet Music Series — concerts every afternoon and night.' },
-  { id: 'p17', label: '17', x: 59.3, y: 64.5, category: 'Exhibits', title: 'Agriculture & Education Center', body: '4-H exhibits, the Mobile Dairy Experience and Agriculture Career Day.' },
-  { id: 'park', label: 'P', x: 75.8, y: 12.3, category: 'Amenities', title: 'Orange Lot Parking', body: 'Closest general lot to the Main Gate. $10 per vehicle.' },
-  { id: 'food', label: 'Food', x: 21.6, y: 35.2, category: 'Food & Drink', title: 'Restaurant Row', body: 'Classic Fair food: sausage sandwiches, fried dough, roasted corn and more.' },
-  { id: 'circus', label: 'Show', x: 59.5, y: 32.4, category: 'Entertainment', title: 'Family Fun Zone', body: 'Hollywood Racing Pigs, magicians and kids’ rides.' },
-  { id: 'cool', label: 'Cool', x: 76.7, y: 41.7, category: 'Amenities', title: 'Cooling Station', body: 'Shade, water refills and misting fans.' },
-  { id: 'aid', label: '+', x: 59.1, y: 47.1, category: 'Amenities', title: 'First Aid', body: 'Staffed by medics from open to close. Lost children can be reunited here.' },
-  { id: 'access', label: 'Access', x: 42.3, y: 53.3, category: 'Amenities', title: 'Accessibility Services', body: 'Wheelchair and scooter rentals, plus accessible restrooms.' },
+  { id: 'p11', kind: 'number', label: '11', color: '#e0379e', x: 48.17, y: 49.17, category: 'Exhibits', title: 'Horticulture Building', body: 'Flower and garden competitions, the Maple Booth and New York-grown produce displays.' },
+  { id: 'p19', kind: 'number', label: '19', color: '#7b43e3', x: 52.91, y: 60.24, category: 'Exhibits', title: 'Center of Progress', body: 'The Fair’s largest exhibit hall: vendors, Taste NY samples and the Dairy Products Competition.' },
+  { id: 'p27', kind: 'number', label: '27', color: '#3f80e8', x: 52.52, y: 54.09, category: 'Food & Drink', title: '1911 Established Beak & Skiff', body: '1911 Hard Ciders, spirits and wine. NYS labeled craft beers. Food including smoked meats, burgers and fries. Apple cider donuts.' },
+  { id: 'p36', kind: 'number', label: '36', color: '#16b21c', x: 59.7, y: 53.63, category: 'Entertainment', title: 'Suburban Park Stage', body: 'Evening concerts in the Chevrolet Music Series and daytime grounds entertainment.' },
+  { id: 'p38', kind: 'number', label: '38', color: '#f26b10', x: 43.43, y: 60.08, category: 'Exhibits', title: 'Dairy Products Building', body: 'Home of the famous Butter Sculpture and the 25-cent milk bar.' },
+  { id: 'p15', kind: 'number', label: '15', color: '#3a3fae', x: 57.39, y: 62.85, category: 'Entertainment', title: 'Chevy Court', body: 'The main stage of the Chevrolet Music Series — concerts every afternoon and night.' },
+  { id: 'p17', kind: 'number', label: '17', color: '#18b6df', x: 63.03, y: 63.16, category: 'Exhibits', title: 'Agriculture & Education Center', body: '4-H exhibits, the Mobile Dairy Experience and Agriculture Career Day.' },
+  { id: 'p5', kind: 'number', label: '5', color: '#ef9b12', x: 63.8, y: 46.87, category: 'Entertainment', title: 'The Midway', body: 'Rides, games and the giant Ferris wheel. Open until 11 pm on Fridays and Saturdays.' },
+  { id: 'p42', kind: 'number', label: '42', color: '#e5333f', x: 71.36, y: 53.63, category: 'Entertainment', title: 'Toyota Coliseum', body: 'Horse shows, the 4-H Dog Show and the draft horse pull.' },
+  { id: 'p8', kind: 'number', label: '8', color: '#0f9b86', x: 83.02, y: 48.4, category: 'Exhibits', title: 'Empire Expo Center', body: 'Antique farm machinery, the Pan-African Village and the Indian Village.' },
+  { id: 'food', kind: 'amenity', icon: 'food', x: 71.23, y: 59.32, category: 'Food & Drink', title: 'Restaurant Row', body: 'Classic Fair food: sausage sandwiches, fried dough, roasted corn and more.' },
+  { id: 'circus', kind: 'amenity', icon: 'show', x: 77.12, y: 62.39, category: 'Entertainment', title: 'Family Fun Zone', body: 'Hollywood Racing Pigs, magicians and kids’ rides.' },
+  { id: 'aid', kind: 'amenity', icon: 'aid', x: 52.52, y: 45.7, category: 'Amenities', title: 'First Aid', body: 'Staffed by medics from open to close. Lost children can be reunited here.' },
+  { id: 'access', kind: 'amenity', icon: 'access', x: 48.17, y: 62.24, category: 'Amenities', title: 'Accessibility Services', body: 'Wheelchair and scooter rentals, plus accessible restrooms.' },
+  { id: 'cool', kind: 'amenity', icon: 'cool', x: 55.6, y: 52.71, category: 'Amenities', title: 'Cooling Station', body: 'Shade, water refills and misting fans.' },
+  { id: 'gate', kind: 'amenity', icon: 'info', x: 48.42, y: 65.77, category: 'Amenities', title: 'Main Gate & Information', body: 'Tickets, maps, lost and found, and stroller rentals.' },
+  { id: 'lake', kind: 'amenity', icon: 'info', x: 77.89, y: 45.94, category: 'Entertainment', title: 'Lake Park', body: 'Shady lawns, the Lumberjack Show and picnic tables by the pond.' },
+  { id: 'park-orange', kind: 'amenity', icon: 'parking', x: 89.04, y: 61.93, category: 'Parking', title: 'Orange Lot', body: 'Closest general lot to the Main Gate. $10 per vehicle.' },
+  { id: 'park-rv', kind: 'amenity', icon: 'parking', x: 63.44, y: 39.4, category: 'Parking', title: 'RV Parking', body: 'Reserved RV parking. Currently at full capacity.' },
+  { id: 'park-willis', kind: 'amenity', icon: 'parking', x: 12.5, y: 76.5, category: 'Parking', title: 'Willis Ave. Lot', body: 'Overflow parking with a free shuttle to Gate 1.' },
 ];
 
 // ---- Tickets (frame is hidden/unfinished in Figma; built from the system) ----

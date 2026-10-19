@@ -29,7 +29,7 @@ npm run preview    # serve the build locally
 | Favorites | Hearts on concerts, schedule items and Fairgrounds events. They are saved in the browser and listed on **My Favorites** |
 | Concerts | Date, Genre and Stage filters, a favorites-only toggle, Reset Filters and Load More |
 | Daily Schedule | 13 day tabs (Aug 20 – Sept 1), Categories and favorites-only |
-| Interactive Map | Tappable pins with an info panel. Search and Categories highlight matching pins |
+| Interactive Map | Full Fairgrounds map you can drag, pinch, scroll or double-tap to zoom. 20 pins open an info card. Search and Categories filter the pins and list the matches |
 | Plan Your Visit | Directions, Parking (alert ticker and accordions) and FAQs |
 | News | List, article detail and previous/next |
 | Buy Tickets | Day picker, quantity steppers, total and a simulated checkout |
@@ -57,7 +57,7 @@ To change copy, events or concerts, edit `src/data/*.js`. To change colours, edi
 
 ## Notes on the Figma file
 
-- **Map:** The file only has the cropped 430×698 map with the pins baked in, so the tappable hotspots sit over those pins. With the full illustration (ideally without pins), the map could pan and zoom with real pin markers.
+- **Map:** Built from the full map illustration (`Map_Design.jpg`, 8000×6669). It is served at 4000px wide plus a small blurred preview that loads first. Pin positions are in `MAP_PINS` in `src/data/fair.js`, as percentages of the image.
 - **Hidden frames:** *Buy Tickets* and *Favorites* are hidden and unfinished in Figma. Both are composed here from the design system.
 - **Not designed:** FAQs, the events filter sheet, Fair Stories, Contact, Terms, Privacy and the activity games. FAQs and the filter sheet follow existing patterns; the rest are themed placeholder pages.
 - **Tab bar:** The iOS tab bar on two Fairgrounds frames was left out on purpose, because the menu covers navigation and a fixed bottom bar fights mobile browsers' own toolbars.
