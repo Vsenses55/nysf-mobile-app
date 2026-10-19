@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import Toast from './components/Toast.jsx';
+import { preloadAssets } from './state/preload.js';
 import Placeholder from './screens/Placeholder.jsx';
 import Start from './screens/Start.jsx';
 
@@ -26,6 +27,14 @@ import Venues from './screens/fairgrounds/Venues.jsx';
 import VenueDetail from './screens/fairgrounds/VenueDetail.jsx';
 import RentalOpportunities from './screens/fairgrounds/RentalOpportunities.jsx';
 
+function Preloader() {
+  const { pathname } = useLocation();
+  // Runs once, after the first screen renders.
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  useEffect(() => preloadAssets(pathname), []);
+  return null;
+}
+
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => window.scrollTo(0, 0), [pathname]);
@@ -36,6 +45,7 @@ export default function App() {
   return (
     <div className="app">
       <ScrollToTop />
+      <Preloader />
       <Routes>
         <Route path="/" element={<Start />} />
 

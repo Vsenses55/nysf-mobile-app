@@ -117,7 +117,7 @@ h1, h2, h3, p { margin: 0; }
   color: var(--grey-50);
   text-decoration: none;
 }
-.menu-link[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.menu-link:focus:not(:focus-visible) { outline: none; }
 .menu-primary { gap: 23px; padding-top: 136px; }
 .menu-rule { width: 100%; margin: 37px 0 0; border: 0; border-top: 1px solid rgba(0, 0, 0, .12); }
 .menu-secondary { gap: 23px; padding-top: 42px; padding-left: 38px; padding-bottom: 48px; }
