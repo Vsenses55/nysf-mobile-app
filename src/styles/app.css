@@ -26,7 +26,7 @@ h1, h2, h3, p { margin: 0; }
 .app {
   position: relative;
   width: 100%;
-  max-width: var(--screen-width); /* 430px */
+  max-width: var(--app-max);
   min-height: 100dvh;
   margin: 0 auto;
   overflow-x: clip;
@@ -100,7 +100,7 @@ h1, h2, h3, p { margin: 0; }
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: var(--screen-width);
+  max-width: var(--app-max);
   transform: translateX(-50%);
   overflow-y: auto;
   background: var(--surface-header);
@@ -498,7 +498,7 @@ h1, h2, h3, p { margin: 0; }
 /* Filter sheet */
 .sheet-backdrop { position: fixed; inset: 0; z-index: 55; display: flex; justify-content: center; align-items: flex-end; background: rgba(13, 18, 21, .55); animation: menu-in .15s ease-out; }
 .sheet {
-  width: 100%; max-width: var(--screen-width);
+  width: 100%; max-width: var(--app-max);
   padding: 24px 30px calc(30px + env(safe-area-inset-bottom));
   border-radius: 10px 10px 0 0; background: #fff;
   animation: panel-up .2s ease-out;
@@ -672,3 +672,12 @@ h1, h2, h3, p { margin: 0; }
   font: 800 11px/1 var(--font-body); color: #fff;
 }
 .map-panel { z-index: 4; }
+
+/* ---------- Width: full-bleed on phones, centred column on bigger screens ----------
+   Phones of any width (including 440px Pro Max models and landscape) fill the
+   screen edge to edge; from tablet width up, the app sits in a 430px column
+   like the Figma frame. */
+:root { --app-max: 100%; }
+@media (min-width: 600px) and (min-height: 500px) {
+  :root { --app-max: var(--screen-width); }
+}
