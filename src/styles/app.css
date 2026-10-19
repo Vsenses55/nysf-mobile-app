@@ -1,0 +1,597 @@
+/* App layout and screen styles. Colours come from tokens.css (generated from the
+   design system); component styles are in components.css. Layout is fluid from
+   320px up to the 430px design frame, then centred. */
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: #0d1215;
+  font-family: var(--font-body);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+}
+body.no-scroll { overflow: hidden; }
+img { max-width: 100%; }
+a { color: inherit; }
+h1, h2, h3, p { margin: 0; }
+
+.visually-hidden {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+.app {
+  position: relative;
+  width: 100%;
+  max-width: var(--screen-width); /* 430px */
+  min-height: 100dvh;
+  margin: 0 auto;
+  overflow-x: clip;
+  background: var(--fg-dark);
+}
+
+/* ---------- Screen shell ---------- */
+.screen {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: var(--surface-page);
+}
+.screen-bar { position: sticky; top: 0; z-index: 20; }
+.screen-body { flex: 1; display: flex; flex-direction: column; }
+.screen .nysf-navbar, .screen .nysf-breadcrumb { width: 100%; }
+
+.gutter { padding-inline: var(--space-20); }
+.pad-top { padding-top: var(--space-24); }
+.pad-bottom { padding-bottom: var(--space-40); }
+.stack-16 { display: flex; flex-direction: column; gap: var(--space-16); }
+.stack-24 { display: flex; flex-direction: column; gap: var(--space-24); }
+.link-reset { display: block; text-decoration: none; color: inherit; }
+
+.section-label {
+  font-family: var(--font-body); font-weight: 800; font-size: 13px; line-height: 16px;
+  letter-spacing: .5px; text-transform: uppercase; color: var(--ink);
+}
+
+.text-button {
+  border: 0; background: none; padding: 0; cursor: pointer;
+  font: 700 14px/20px var(--font-body); color: inherit; text-decoration: underline;
+}
+
+/* Bottom space so the last block never sits flush against the footer. */
+.screen-body > :last-child:not(.panel):not(.fg-sheet):not(.accordions):not(.map-frame):not(.fg-form-wrap) { margin-bottom: var(--space-40); }
+
+/* ---------- Start screen ---------- */
+.start {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  min-height: 100dvh;
+  padding: 21px var(--space-20);
+  background: var(--fg-dark);
+}
+.start-card {
+  position: relative;
+  display: block;
+  flex: 1 1 0;
+  min-height: 220px;
+  max-height: 450px;
+  border-radius: var(--radius-10);
+  overflow: hidden;
+  background: #3a5361;
+  transition: transform .15s ease;
+}
+.start-card:active { transform: scale(.985); }
+.start-card-fg { max-height: 425px; }
+.start-photo { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.start-logo { position: absolute; left: 50%; transform: translateX(-50%); width: 175px; max-height: 45%; object-fit: contain; }
+.start-logo-fair { top: 40px; }
+.start-logo-fg { top: 50px; }
+
+/* ---------- Full-screen menu ---------- */
+.menu {
+  position: fixed;
+  top: 0; bottom: 0; left: 50%;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: var(--screen-width);
+  transform: translateX(-50%);
+  overflow-y: auto;
+  background: var(--surface-header);
+  animation: menu-in .18s ease-out;
+}
+@keyframes menu-in { from { opacity: 0; } to { opacity: 1; } }
+.menu-close { position: absolute; top: 45px; right: 21px; }
+.menu-primary, .menu-secondary { display: flex; flex-direction: column; align-items: flex-start; padding-inline: 40px 20px; }
+.menu-link {
+  font-family: var(--font-body);
+  font-weight: 800;
+  font-size: 20px;
+  line-height: 24px;
+  color: var(--grey-50);
+  text-decoration: none;
+}
+.menu-link[aria-current="page"] { text-decoration: underline; text-underline-offset: 6px; text-decoration-thickness: 2px; }
+.menu-primary { gap: 23px; padding-top: 136px; }
+.menu-rule { width: 100%; margin: 37px 0 0; border: 0; border-top: 1px solid rgba(0, 0, 0, .12); }
+.menu-secondary { gap: 23px; padding-top: 42px; padding-left: 38px; padding-bottom: 48px; }
+.menu-row { display: flex; align-items: center; justify-content: space-between; width: 100%; max-width: 350px; margin: -3px 0; }
+
+.menu-fairgrounds .menu-close { top: 37px; right: 35px; }
+.menu-fairgrounds .menu-close .nysf-glyph { width: 26px; height: 26px; }
+.menu-fairgrounds .menu-link { font-weight: 700; font-size: 20.25px; }
+.menu-fairgrounds .menu-primary { gap: 32px; padding-top: 114px; }
+.menu-fairgrounds .menu-rule { margin-top: 34px; border-top-color: rgba(255, 255, 255, .12); }
+.menu-fairgrounds .menu-secondary { gap: 32px; padding-top: 50px; }
+.menu-follow { margin-top: auto; }
+
+/* ---------- Shared sign-up success ---------- */
+.signup-done { text-align: center; }
+.signup-done-text { font: 400 16px/22px var(--font-body); color: var(--signup-ink); max-width: 322px; }
+.signup-done-reset {
+  border: 0; background: none; cursor: pointer; padding: 0;
+  font: 700 14px/20px var(--font-body); color: var(--signup-heading); text-decoration: underline;
+}
+
+/* ---------- Filters, chips, empty states ---------- */
+.filter-row { display: flex; align-items: center; justify-content: center; gap: var(--space-20); min-height: 50px; }
+.fav-chip {
+  display: inline-flex; align-items: center; gap: var(--space-10);
+  padding: 6px 12px; border: 0; border-radius: var(--radius-pill);
+  background: transparent; cursor: pointer;
+  font: 700 14px/20px var(--font-body); color: var(--on-block-strong);
+}
+.fav-chip-heart { width: 17px; height: 15px; color: var(--accent-500); }
+.fav-chip.is-active { background: rgba(255, 255, 255, .16); }
+.reset-chip { color: var(--on-block-strong); }
+.reset-chip .nysf-glyph { color: var(--accent-500); }
+.panel-schedule .fav-chip { color: var(--accent-subtle-500); }
+.screen-fairgrounds .fav-chip { color: var(--ink); }
+.screen-fairgrounds .fav-chip-heart { color: var(--neutral-500); }
+.screen-fairgrounds .fav-chip.is-active { background: #dbe2ea; }
+
+.empty-state { padding: var(--space-24) var(--space-16); text-align: center; color: inherit; }
+.empty-state-title { font: 800 18px/24px var(--font-body); }
+.empty-state-text { margin-top: 6px; font: 400 14px/20px var(--font-body); opacity: .9; }
+.empty-links { display: flex; flex-direction: column; gap: 8px; margin-top: 16px; font-weight: 700; }
+
+/* ---------- The Fair: home ---------- */
+.fair-home-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 27px 0 80px;
+  background-color: #f6b33b;
+  background-position: center top;
+  background-size: cover;
+  margin-top: -80px;           /* the art runs up under the nav bar */
+  padding-top: 107px;
+}
+.fair-home-logo img { display: block; width: 122px; height: 120px; }
+.fair-home-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 140px);
+  column-gap: 14px;
+  row-gap: 9px;
+  margin-top: 25px;
+}
+.fair-home-tile { display: block; border-radius: 22px; transition: transform .12s ease; }
+.fair-home-tile:active { transform: scale(.96); }
+.fair-home-tile img { display: block; width: 140px; height: 133px; }
+
+.sponsors {
+  position: relative;
+  margin-top: -40px;
+  padding: 40px 0 10px;
+  border-radius: 40px 40px 0 0;
+  background: var(--tertiary-500);
+  text-align: center;
+}
+.sponsors-title {
+  font-family: var(--font-display); font-weight: 400; font-size: 32px; line-height: 24px;
+  text-transform: uppercase; color: var(--accent-subtle-500);
+}
+.sponsors-track {
+  display: flex; gap: 14px;
+  padding: 20px 21px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+}
+.sponsors-track::-webkit-scrollbar { display: none; }
+.sponsor-card {
+  flex: 0 0 260px; height: 125px;
+  display: flex; align-items: center; justify-content: center;
+  padding: 10px; border-radius: var(--radius-10);
+  background: var(--grey-50);
+  scroll-snap-align: center;
+}
+.sponsor-card img { max-height: 105px; object-fit: contain; }
+.sponsor-name { font: 800 18px/22px var(--font-body); color: var(--secondary-500); }
+
+/* ---------- The Fair: page title + framed hero (Concerts) ---------- */
+.page-title { padding: 24px var(--space-20) 7px; text-align: center; text-transform: uppercase; font-family: var(--font-display); font-weight: 400; }
+.page-title-main { font-size: 32px; line-height: 24px; color: var(--ink); }
+.page-title-sub { margin-top: 8px; font-size: 18px; line-height: 20px; color: #2a2a2a; }
+.hero-frame {
+  height: 200px;
+  border: 5px solid var(--accent-subtle-500);
+  border-radius: var(--radius-10);
+  overflow: hidden;
+  background: var(--media-placeholder);
+}
+.hero-frame img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- The Fair: rounded content panels ---------- */
+.panel {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-8);
+  margin-top: var(--space-24);
+  padding: var(--space-10) var(--space-20) var(--space-40);
+  border-radius: 40px 40px 0 0;
+}
+.panel > * { width: 100%; }
+.panel > .nysf-prevnext, .panel > .filter-row { width: auto; }
+.panel-green { background: var(--surface-header); color: var(--on-block-strong); }
+.panel-schedule { margin-top: 14px; padding-top: var(--space-20); gap: var(--space-24); }
+.panel-news { margin-top: var(--space-24); padding-top: 50px; gap: var(--space-40); }
+.dropdown-pair { display: flex; gap: var(--space-8); }
+.dropdown-pair > * { flex: 1; min-width: 0; }
+.panel .nysf-dropdown-trigger { border-radius: 12px; }
+.panel .nysf-dropdown { position: relative; }
+.panel .nysf-dropdown-menu { position: absolute; z-index: 5; top: calc(100% + 8px); left: 0; right: 0; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+.list { display: flex; flex-direction: column; }
+.list-media { gap: var(--space-20); margin-top: var(--space-20); margin-bottom: var(--space-20); }
+.list-cards { gap: var(--space-30); }
+
+/* ---------- The Fair: day tabs ---------- */
+.day-scroller {
+  display: flex;
+  gap: var(--space-8);
+  margin: 22px 0 16px;
+  padding-inline: var(--space-20);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scrollbar-width: none;
+}
+.day-scroller::-webkit-scrollbar { display: none; }
+.day-scroller::after { content: ""; flex: 0 0 12px; }
+.day-scroller .nysf-day { flex: none; scroll-snap-align: start; scroll-margin-left: var(--space-20); }
+
+/* ---------- The Fair: updates, activities ---------- */
+.updates { display: flex; flex-direction: column; gap: var(--space-12); padding: var(--space-40) var(--space-20) 56px; }
+.updates > * { width: 100%; max-width: 354px; margin-inline: auto; }
+.updates-off {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding: 14px 20px; border-radius: var(--radius-10);
+  background: var(--secondary-500); color: var(--grey-50);
+  font: 400 14px/20px var(--font-body);
+}
+
+.activities { display: flex; flex-direction: column; gap: var(--space-16); padding: var(--space-24) var(--space-20) var(--space-40); }
+.activity-card {
+  display: block; aspect-ratio: 1;
+  border: 9px solid var(--accent-subtle-500); border-radius: 40px;
+  overflow: hidden; background: var(--surface-raised);
+  transition: transform .12s ease;
+}
+.activity-card:active { transform: scale(.98); }
+.activity-card img { display: block; width: 100%; height: 100%; object-fit: cover; }
+
+/* ---------- The Fair: plan your visit, directions, parking ---------- */
+.page-links { display: flex; flex-direction: column; gap: 3px; margin-top: 37px; }
+.prose { font: 400 14px/20px var(--font-body); color: var(--ink-secondary); }
+.prose p + p { margin-top: 20px; }
+.prose a { color: var(--secondary-500); font-weight: 700; }
+.prose h3 { margin: 24px 0 8px; font: 800 14px/20px var(--font-body); letter-spacing: .5px; color: var(--ink); }
+.prose-article { color: var(--ink); }
+.article-date { margin-top: -8px; font: 800 13px/16px var(--font-body); text-transform: uppercase; color: var(--ink); }
+
+.ticker {
+  display: flex; align-items: center; justify-content: center;
+  min-height: 65px; padding: var(--space-10);
+  background: var(--accent-subtle-500);
+  font: 400 16px/20px var(--font-body); color: var(--ink); text-align: center;
+}
+.accordions { display: flex; flex-direction: column; margin-top: var(--space-24); }
+.accordions .nysf-accordion-row { border-bottom: .5px solid var(--neutral-800); }
+.accordions .nysf-accordion:last-child .nysf-accordion-row { border-bottom: 0; }
+.accordions .nysf-accordion-panel { min-height: 0; }
+
+/* ---------- The Fair: news ---------- */
+.news-feature .nysf-media-title { color: var(--ink); }
+.news-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: var(--space-40); }
+.news-item { display: flex; align-items: center; gap: var(--space-16); color: var(--on-block-strong); text-decoration: none; }
+.news-item-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-10); }
+.news-item-date { font: 700 14px/17px var(--font-body); }
+.news-item-title {
+  font: 800 20px/24px var(--font-body); text-transform: capitalize;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
+.news-item-thumb { flex: none; width: 100px; height: 100px; border-radius: var(--radius-4); object-fit: cover; }
+.prevnext-row { display: flex; justify-content: space-between; gap: 10px; margin-top: var(--space-16); }
+.prevnext-row .nysf-prevnext { flex: 1; max-width: 190px; }
+
+/* ---------- The Fair: favorites (ink on the yellow page) ---------- */
+.favorites { display: flex; flex-direction: column; gap: var(--space-30); }
+.favorites .nysf-listmedia, .favorites .nysf-listcard { color: var(--ink); }
+.favorites .nysf-fav.is-selected { color: var(--tertiary-500); }
+.favorites .empty-state { color: var(--ink); }
+.favorites .empty-links a { color: var(--secondary-500); }
+
+/* ---------- The Fair: tickets ---------- */
+.tickets { display: flex; flex-direction: column; gap: var(--space-12); padding-bottom: var(--space-40); }
+.tickets > .nysf-btn { align-self: center; margin-top: var(--space-16); }
+.ticket-row {
+  display: flex; align-items: center; justify-content: space-between; gap: var(--space-16);
+  padding: var(--space-20); border-radius: var(--radius-10);
+  background: var(--accent-subtle-500);
+}
+.ticket-title { font: 800 18px/22px var(--font-body); color: var(--ink); }
+.ticket-note { margin-top: 4px; font: 400 13px/18px var(--font-body); color: var(--ink-secondary); }
+.ticket-price { margin-top: 8px; font: 400 23px/20px var(--font-display); color: var(--secondary-500); }
+.stepper { display: flex; align-items: center; gap: 12px; font: 800 20px/24px var(--font-body); color: var(--ink); }
+.stepper span { min-width: 20px; text-align: center; }
+.stepper button {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 40px; height: 40px; border: 0; border-radius: var(--radius-10);
+  background: var(--secondary-500); color: var(--accent-500); cursor: pointer;
+}
+.stepper button:disabled { opacity: .35; cursor: default; }
+.stepper .nysf-glyph { width: 14px; }
+.ticket-total {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: var(--space-16) 4px 0; border-top: 2px solid var(--secondary-500);
+  font: 400 29px/24px var(--font-display); color: var(--secondary-500);
+}
+.tickets-done { display: flex; flex-direction: column; align-items: center; gap: var(--space-16); text-align: center; }
+.tickets-done-eyebrow { font: 800 13px/16px var(--font-body); text-transform: uppercase; letter-spacing: .5px; }
+.tickets-done-title { font: 400 32px/30px var(--font-display); text-transform: uppercase; color: var(--secondary-500); }
+.tickets-done-text { font: 400 16px/22px var(--font-body); color: var(--ink-secondary); max-width: 340px; }
+
+/* ---------- The Fair: interactive map ---------- */
+.map-controls { display: flex; flex-direction: column; gap: 15px; padding-top: 18px; }
+.map-search-row { display: flex; align-items: center; gap: 11px; }
+.map-search.nysf-search { flex: 1; width: auto; height: 50px; }
+.map-filter-btn { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 50px; border: 0; background: none; cursor: pointer; }
+.map-result { font: 700 14px/20px var(--font-body); color: var(--ink); }
+.map-controls .nysf-dropdown { position: relative; z-index: 6; }
+.map-controls .nysf-dropdown-trigger { border-radius: 12px; }
+.map-controls .nysf-dropdown-menu { position: absolute; top: calc(100% + 8px); left: 0; right: 0; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+.map-frame { position: relative; margin-top: var(--space-20); flex: 1; background: #202020; }
+.map-canvas { position: relative; }
+.map-image { display: block; width: 100%; height: auto; aspect-ratio: 430 / 698; object-fit: cover; }
+.map-pin {
+  position: absolute;
+  width: 44px; height: 44px;
+  margin: -22px 0 0 -22px;
+  border: 0; border-radius: 50%;
+  background: transparent;
+  cursor: pointer;
+  transition: box-shadow .2s ease, background-color .2s ease;
+}
+.map-pin:focus-visible { outline: 3px solid var(--secondary-500); outline-offset: 0; }
+.map-pin.is-match { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--tertiary-500); animation: pin-pulse 1.4s ease-in-out infinite; }
+.map-pin.is-dim { background: rgba(32, 32, 32, .45); }
+.map-pin.is-active { box-shadow: 0 0 0 3px #fff, 0 0 0 6px var(--secondary-500); animation: none; }
+@keyframes pin-pulse { 50% { box-shadow: 0 0 0 3px #fff, 0 0 0 10px rgba(238, 70, 35, .35); } }
+.map-panel {
+  position: absolute; left: var(--space-20); right: var(--space-20); bottom: var(--space-20);
+  display: flex; flex-direction: column; gap: 12px;
+  padding: 30px; border-radius: var(--radius-15);
+  background: var(--fg-porcelain);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, .3);
+  animation: panel-up .2s ease-out;
+}
+@keyframes panel-up { from { transform: translateY(12px); opacity: 0; } }
+.map-panel-close { position: absolute; top: 14px; right: 14px; display: inline-flex; padding: 8px; border: 0; background: none; color: var(--ink-secondary); cursor: pointer; }
+.map-panel-close .nysf-glyph { width: 14px; height: 14px; }
+.map-panel-eyebrow { font: 800 12px/16px var(--font-body); text-transform: uppercase; letter-spacing: .5px; color: var(--primary-500); }
+.map-panel-title { padding-right: 24px; font: 400 18px/20px var(--font-body); color: var(--ink-secondary); }
+.map-panel-body { font: 400 14px/20px var(--font-body); color: var(--ink-secondary); }
+
+/* ---------- Placeholder pages ---------- */
+.placeholder { display: flex; flex-direction: column; align-items: center; gap: var(--space-16); padding: 64px var(--space-30) 72px; text-align: center; }
+.placeholder-eyebrow { font: 800 13px/16px var(--font-body); text-transform: uppercase; letter-spacing: .5px; color: var(--ink); }
+.placeholder-title { font: 400 32px/30px var(--font-display); text-transform: uppercase; color: var(--secondary-500); }
+.placeholder-body { max-width: 330px; font: 400 16px/22px var(--font-body); color: var(--ink-secondary); }
+.screen-fairgrounds .placeholder-title { font: 700 31px/40px var(--font-fg-display); color: var(--ink); text-transform: none; }
+
+/* ---------- Toast ---------- */
+.toast-region { position: fixed; left: 0; right: 0; bottom: 24px; z-index: 60; display: flex; justify-content: center; pointer-events: none; padding: 0 20px; }
+.toast {
+  max-width: 390px; padding: 14px 20px; border-radius: 12px;
+  background: #19262d; color: #f1f1f1; box-shadow: 0 10px 30px rgba(0, 0, 0, .3);
+  font: 600 14px/20px var(--font-body); text-align: center;
+  animation: panel-up .2s ease-out;
+}
+
+/* =================== Fairgrounds =================== */
+.screen-fairgrounds .nysf-search { background: var(--surface-search-active); }
+.fg-band {
+  display: flex; align-items: center; justify-content: center;
+  height: 80px; margin: 0; padding: 0 30px;
+  background: var(--surface-header);
+  font: 700 22.78px/40px var(--font-fg-display); letter-spacing: .5px; color: #fff;
+}
+.fg-sheet {
+  display: flex; flex-direction: column; gap: var(--space-30);
+  padding: var(--space-40) var(--space-20);
+  border-radius: var(--radius-10) var(--radius-10) 0 0;
+  background: var(--surface-raised);
+}
+.fg-photo { height: 200px; border-radius: var(--radius-5); overflow: hidden; background: var(--media-placeholder); }
+.fg-photo-tall { height: 285px; }
+.fg-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fg-h2 { font: 700 22.78px/27.63px var(--font-body); letter-spacing: .5px; color: var(--ink-secondary); }
+.fg-body { font: 400 16px/22.78px var(--font-body); color: var(--ink-secondary); }
+.fg-body p + p { margin-top: 22px; }
+.fg-eyebrow { font: 600 14px/18px var(--font-body); letter-spacing: .5px; color: var(--link); }
+.fg-card-title { font: 700 14.22px/22.78px var(--font-body); letter-spacing: .5px; color: var(--ink-secondary); }
+.fg-link { font-weight: 700; color: var(--link); }
+.fg-phone { font-weight: 700; color: var(--ink-secondary); text-decoration: none; }
+.screen-fairgrounds .nysf-btn { align-self: flex-start; }
+
+/* Home */
+.carousel { position: relative; }
+.carousel-track { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.carousel-track::-webkit-scrollbar { display: none; }
+.carousel-slide { flex: 0 0 100%; scroll-snap-align: start; display: flex; flex-direction: column; text-decoration: none; }
+.carousel-slide img { display: block; width: 100%; height: 314px; object-fit: cover; background: var(--media-placeholder); }
+.carousel-caption {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px;
+  min-height: 103px; padding: 12px 30px; text-align: center;
+  background: var(--surface-page);
+}
+.carousel-date { font: 700 16px/24px var(--font-body); color: var(--link); }
+.carousel-title { font: 700 12.64px/18px var(--font-body); color: var(--ink-secondary); }
+.carousel-dots { position: absolute; top: 287px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; gap: 8px; }
+.carousel-dot { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 99px; background: rgba(255, 255, 255, .85); cursor: pointer; transition: width .2s ease; }
+.carousel-dot.is-active { width: 24px; background: var(--fg-french-blue); }
+
+.fg-home-links { gap: var(--space-30); }
+.fg-tile { display: flex; flex-direction: column; gap: var(--space-10); text-decoration: none; min-width: 0; }
+.fg-tile-label { font: 700 20.25px/30px var(--font-fg-display); letter-spacing: .5px; color: var(--neutral-500); }
+.fg-tile img { display: block; width: 100%; height: 200px; object-fit: cover; }
+.fg-tile-pair { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-10); }
+
+/* Upcoming events */
+.fg-toolbar { display: flex; align-items: center; justify-content: space-between; padding-top: 29px; padding-right: 34px; padding-left: 30px; min-height: 55px; margin-bottom: 24px; }
+.fg-filters-btn { display: inline-flex; align-items: flex-end; gap: var(--space-10); padding: 0; border: 0; background: none; cursor: pointer; font: 700 14px/17px var(--font-body); color: var(--ink-secondary); }
+.fg-toolbar .nysf-glyph { width: 28px; height: 26px; }
+.month-scroller { gap: 14px; margin: 25px 0 31px; }
+.screen-fairgrounds .nysf-day { width: 128px; }
+.fg-events { padding-top: var(--space-20); }
+.fg-events .filter-row { min-height: 18px; }
+.screen-fairgrounds .nysf-post-fav { color: #f1f1f1; }
+.screen-fairgrounds .nysf-post-fav.is-selected { color: var(--accent-500); }
+
+.calendar { margin-bottom: var(--space-24); border-radius: var(--radius-5); overflow: hidden; }
+.calendar-head { display: flex; align-items: center; justify-content: space-between; height: 67px; padding: 0 9px 0 18px; background: #f8fcff; }
+.calendar-month { font: 500 21px/1.25 var(--font-body); color: #252525; }
+.calendar-month strong { font-weight: 700; }
+.calendar-arrows { display: flex; }
+.calendar-arrows button { display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border: 0; background: none; color: #252525; cursor: pointer; }
+.calendar-arrows button:disabled { opacity: .3; cursor: default; }
+.calendar-arrows .nysf-glyph { width: 8px; height: 13px; }
+.calendar-dow { display: grid; grid-template-columns: repeat(7, 1fr); height: 28px; padding-bottom: 4px; background: #f8fcff; font: 700 12px/24px var(--font-body); color: #252525; text-align: center; }
+.calendar-week { display: grid; grid-template-columns: repeat(7, 1fr); height: 60px; background: var(--grey-50); }
+.calendar-cell { display: flex; align-items: center; justify-content: center; }
+.calendar-day {
+  display: inline-flex; align-items: center; justify-content: center;
+  width: 32px; height: 32px; padding: 0; border: 0; border-radius: var(--radius-4);
+  background: none; font: 700 14px/1 var(--font-body); color: var(--ink);
+}
+.calendar-day:disabled { cursor: default; }
+.calendar-day.has-event { background: var(--neutral-500); color: #fff; cursor: pointer; }
+.calendar-day.is-selected { background: var(--fg-french-blue); }
+
+/* Filter sheet */
+.sheet-backdrop { position: fixed; inset: 0; z-index: 55; display: flex; justify-content: center; align-items: flex-end; background: rgba(13, 18, 21, .55); animation: menu-in .15s ease-out; }
+.sheet {
+  width: 100%; max-width: var(--screen-width);
+  padding: 24px 30px calc(30px + env(safe-area-inset-bottom));
+  border-radius: 10px 10px 0 0; background: #fff;
+  animation: panel-up .2s ease-out;
+}
+.sheet-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+.sheet-title { font: 700 22.78px/40px var(--font-fg-display); letter-spacing: .5px; color: var(--neutral-500); }
+.sheet-close { display: inline-flex; padding: 8px; border: 0; background: none; color: var(--fg-french-blue); cursor: pointer; }
+.sheet-close .nysf-glyph { width: 16px; height: 16px; }
+.sheet-options { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.check { display: flex; align-items: center; gap: 14px; padding: 12px 0; border-bottom: 1px solid #e3ebf0; font: 600 16px/22px var(--font-body); color: var(--ink-secondary); cursor: pointer; }
+.check input { position: absolute; opacity: 0; pointer-events: none; }
+.check-box { flex: none; width: 22px; height: 22px; border: 2px solid var(--neutral-500); border-radius: var(--radius-4); }
+.check input:checked + .check-box { background: var(--fg-french-blue) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath d='M3 8.5l3 3 7-7' fill='none' stroke='white' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 14px no-repeat; border-color: var(--fg-french-blue); }
+.check input:focus-visible + .check-box { outline: 3px solid var(--fg-french-blue); outline-offset: 2px; }
+.sheet-actions { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-top: 24px; color: var(--neutral-500); }
+
+/* Event detail */
+.fg-detail { display: flex; flex-direction: column; gap: var(--space-30); padding: var(--space-20) var(--space-20) var(--space-40); background: #f0f0f0; }
+.fg-detail-image { position: relative; height: 285px; border-radius: var(--radius-5); overflow: hidden; background: var(--media-placeholder); }
+.fg-detail-image img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.fg-detail-head { display: flex; flex-direction: column; gap: 6px; margin-top: -10px; letter-spacing: .5px; }
+.fg-detail-date { font: 600 14px/22.78px var(--font-body); color: var(--link); }
+.fg-detail-title { font: 700 20.25px/26px var(--font-body); color: var(--ink-secondary); }
+.fg-prose { font: 400 16px/22.78px var(--font-body); letter-spacing: .5px; color: var(--ink-secondary); }
+.fg-prose p + p, .fg-prose p + ul, .fg-prose ul + p { margin-top: 22px; }
+.fg-prose p.tight + p.tight { margin-top: 0; }
+.fg-prose h3 { margin: 22px 0 0; font: 700 16px/22.78px var(--font-body); }
+.fg-prose h3:first-child { margin-top: 0; }
+.fg-prose ul { margin: 0; padding-left: 24px; }
+.fg-prose a { font-weight: 700; color: var(--link); }
+.fg-contact { display: flex; flex-direction: column; gap: 4px; padding: 30px; border-radius: var(--radius-4); background: #dbe2ea; letter-spacing: .5px; }
+.fg-contact-label { margin-bottom: 16px; font: 900 12.64px/18px var(--font-body); text-transform: uppercase; color: var(--ink); }
+.fg-contact a { width: fit-content; font: 700 16px/22.78px var(--font-body); color: #1f3667; }
+
+/* Venues */
+.fg-intro { display: flex; flex-direction: column; gap: var(--space-20); padding-top: var(--space-20); padding-bottom: var(--space-40); }
+.fg-venues { gap: 60px; padding-top: var(--space-20); }
+.venue-card { display: flex; flex-direction: column; gap: var(--space-12); }
+.venue-card .fg-photo { margin-bottom: 8px; }
+.venue-card .fg-body { margin: 8px 0 8px; }
+.fg-venue-detail { display: flex; flex-direction: column; gap: var(--space-12); padding-top: var(--space-20); padding-bottom: var(--space-40); }
+.fg-venue-detail .fg-photo { margin-bottom: 8px; }
+.fg-venue-detail .fg-body { margin-top: 8px; }
+.specs { margin: 24px 0 16px; font: 400 16px/22.78px var(--font-body); color: var(--ink-secondary); }
+.specs-label { margin-bottom: 12px; font: 700 12.64px/22.78px var(--font-body); }
+.specs div + div { margin-top: 22px; }
+.specs dt { font-weight: 700; }
+.specs dd { margin: 0; }
+
+/* Rental form */
+.fg-form-wrap { padding: var(--space-40) var(--space-20); background: var(--surface-raised); }
+.fg-form, .fg-form-done { display: flex; flex-direction: column; gap: var(--space-30); }
+.form-error { margin-top: -18px; font: 700 14px/20px var(--font-body); color: #b42318; }
+
+/* ---------- Motion preferences ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+}
+
+/* ---------- Narrow phones (≤360px) ---------- */
+@media (max-width: 360px) {
+  .fair-home-tiles { grid-template-columns: repeat(2, 128px); column-gap: 10px; }
+  .fair-home-tile img { width: 128px; height: auto; }
+  .page-title-main { font-size: 29px; }
+  .news-item-thumb { width: 84px; height: 84px; }
+}
+
+/* ---------- Fidelity adjustments (from side-by-side checks against Figma) ----------
+   Figma trims text boxes to cap height, so stacked text sits tighter than CSS
+   line boxes; these rules close that gap. */
+.screen-fair .nysf-breadcrumb-label { margin-top: 3px; }
+[data-theme="fairgrounds"] .nysf-breadcrumb-label { font-size: 22.78px; letter-spacing: .5px; }
+.page-title-sub { margin-top: 2px; }
+.panel .nysf-dropdown-trigger, .map-controls .nysf-dropdown-trigger { padding: 0 var(--space-20); }
+.panel .nysf-dropdown-caret, .map-controls .nysf-dropdown-caret { width: 16px; height: 10px; }
+.reset-chip { font-size: 14px; }
+.panel .nysf-listmedia-text { gap: 4px; }
+.panel .nysf-listmedia-meta { margin-top: 2px; }
+.nysf-listcard-text { gap: 2px; }
+.nysf-listcard-time { font-weight: 400; }
+.list-cards { gap: 22px; }
+.panel-schedule { gap: 22px; }
+.panel-schedule .filter-row { min-height: 18px; margin-bottom: 4px; }
+.day-scroller { margin-top: 16px; }
+.fg-band { text-transform: uppercase; }
+.fg-tile { gap: 6px; }
+.fg-tile-label { line-height: 24px; }
+.nysf-post-text { gap: 0; }
+.day-scroller.month-scroller { margin: 25px 0 31px; }
+.map-search.nysf-search { min-width: 0; }
+.map-frame { flex: none; }
+@media (max-width: 360px) {
+  .panel .nysf-listmedia-thumb { width: 80px; height: 80px; }
+  .panel .nysf-listmedia { gap: 12px; }
+  .ticket-row { padding: 16px; }
+}

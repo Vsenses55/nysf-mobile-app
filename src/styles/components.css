@@ -1,0 +1,203 @@
+/* NYSF App components. Every colour is a token from tokens.json; the two sides
+   (The Fair / Fairgrounds) switch with [data-theme]. Non-colour differences
+   between the sides (type families, corner shapes) are the [data-theme="fairgrounds"] rules. */
+
+.nysf-bare { background: none; border: 0; padding: 0; margin: 0; cursor: pointer; color: inherit; font: inherit; display: inline-flex; align-items: center; justify-content: center; }
+.nysf-raw { display: inline-flex; line-height: 0; }
+.nysf-raw svg { display: block; }
+.nysf-glyph { display: block; flex: none; }
+.nysf-glyph-flip { transform: scaleY(-1); }
+.nysf-glyph-flipx { transform: scaleX(-1); }
+.nysf-only-fg, .nysf-only-fg-inline { display: none; }
+.nysf-only-fair { display: contents; }
+[data-theme="fairgrounds"] .nysf-only-fair, [data-theme="fairgrounds"] .nysf-only-fair-inline { display: none; }
+[data-theme="fairgrounds"] .nysf-only-fg { display: contents; }
+[data-theme="fairgrounds"] .nysf-only-fg-inline { display: inline-flex; }
+:where(.nysf-btn, .nysf-pagebtn, .nysf-prevnext, .nysf-day, .nysf-reset, .nysf-fav, .nysf-toggle, .nysf-iconbtn, .nysf-dropdown-trigger, .nysf-accordion-row, .nysf-bare, .nysf-field-input, .nysf-search-input):focus-visible {
+  outline: 3px solid var(--secondary-500); outline-offset: 2px;
+}
+[data-theme="fairgrounds"] :where(.nysf-btn, .nysf-pagebtn, .nysf-prevnext, .nysf-day, .nysf-fav, .nysf-toggle, .nysf-iconbtn, .nysf-bare, .nysf-field-input, .nysf-search-input):focus-visible { outline-color: var(--fg-french-blue); }
+
+/* ---------- NavBar ---------- */
+.nysf-navbar { box-sizing: border-box; display: flex; align-items: center; gap: var(--space-10); height: var(--bar-height); padding: var(--space-10) var(--space-25); background: var(--surface-header); color: var(--on-header); width: 100%; }
+.nysf-navbar-logo svg { width: 60.69px; height: 60px; }
+.nysf-navbar-actions { flex: 1; display: flex; justify-content: flex-end; align-items: center; gap: 18px; }
+.nysf-navbar-actions .nysf-raw svg { width: auto; }
+.nysf-navbar-menu { color: var(--on-header); }
+[data-theme="fairgrounds"] .nysf-navbar { justify-content: space-between; }
+[data-theme="fairgrounds"] .nysf-navbar-logo svg { width: 78.28px; height: 50px; }
+
+/* ---------- Breadcrumb ---------- */
+.nysf-breadcrumb { box-sizing: border-box; position: relative; display: flex; align-items: center; justify-content: space-between; height: var(--bar-height); padding: var(--space-10) var(--space-25) var(--space-10) 22px; background: var(--surface-header); width: 100%; }
+.nysf-breadcrumb-back { color: var(--header-icon); }
+.nysf-breadcrumb-back .nysf-glyph { width: 29px; height: 23px; }
+.nysf-breadcrumb-menu { color: var(--menu-icon); }
+.nysf-breadcrumb-spacer { width: 29px; }
+.nysf-breadcrumb-label { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; white-space: nowrap; font-family: var(--font-display); font-weight: 400; font-size: 22.78px; line-height: 28px; text-transform: uppercase; color: var(--on-header); }
+[data-theme="fairgrounds"] .nysf-breadcrumb { padding: var(--space-10) var(--space-25); }
+[data-theme="fairgrounds"] .nysf-breadcrumb-back .nysf-glyph { width: 26.02px; height: 20.05px; }
+[data-theme="fairgrounds"] .nysf-breadcrumb-label { font-family: var(--font-fg-display); font-weight: 700; font-size: 14.22px; line-height: 28px; }
+
+/* ---------- IconButton ---------- */
+.nysf-iconbtn { background: none; border: 0; padding: 0; cursor: pointer; color: var(--header-icon); display: inline-flex; align-items: center; justify-content: center; }
+.nysf-iconbtn-close-circle .nysf-glyph { width: 56px; height: 56px; }
+.nysf-iconbtn-back .nysf-glyph { width: 29px; height: 23px; }
+.nysf-iconbtn-menu { color: var(--menu-icon); }
+.nysf-iconbtn-calendar, .nysf-iconbtn-list { color: var(--neutral-500); }
+
+/* ---------- Button ---------- */
+.nysf-btn { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-10); min-width: 204px; height: var(--pill-height); padding: 12px var(--space-20); border: 0; border-radius: var(--radius-pill); cursor: pointer; text-decoration: none;
+  font-family: var(--font-body); font-weight: 900; font-size: 16px; line-height: 24px; letter-spacing: 0.5px; text-transform: uppercase; white-space: nowrap; }
+.nysf-btn-primary, .nysf-btn-signup { background: var(--action); color: var(--on-action); }
+.nysf-btn-alt { background: var(--action-alt); color: var(--on-action-alt); }
+.nysf-btn:disabled { opacity: .5; cursor: default; }
+.nysf-btn-icon { width: 20px; height: 20px; }
+[data-theme="fairgrounds"] .nysf-btn { min-width: 200px; height: 60px; padding: 5px var(--space-20); border-radius: var(--radius-4); font-weight: 700; }
+[data-theme="fairgrounds"] .nysf-btn-signup { background: var(--action-alt); color: var(--on-action-alt); }
+
+/* ---------- PageButton ---------- */
+.nysf-pagebtn { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; width: 100%; height: var(--row-height); padding: var(--space-10) var(--space-25); border: 0; border-radius: var(--radius-10); background: var(--surface-block); color: var(--on-block-strong); cursor: pointer; text-decoration: none; text-align: left;
+  font-family: var(--font-body); font-weight: 800; font-size: 20px; line-height: 24px; }
+.nysf-pagebtn-arrow { width: 28.06px; height: 28.06px; color: var(--header-icon); }
+.nysf-pagebtn-arrow .c2 { fill: var(--surface-block); }
+
+/* ---------- PrevNextButton ---------- */
+.nysf-prevnext { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; gap: var(--space-10); width: 190px; height: var(--row-height); padding: var(--space-10) var(--space-25); border: 0; border-radius: var(--radius-10); background: var(--surface-block); color: var(--on-block); cursor: pointer;
+  font-family: var(--font-body); font-weight: 700; font-size: 16px; line-height: 16.22px; letter-spacing: 0.5px; }
+.nysf-prevnext .nysf-glyph { width: 7.69px; height: 13.1px; color: var(--accent-subtle-500); }
+.nysf-prevnext:disabled { opacity: .5; cursor: default; }
+
+/* ---------- DayButton ---------- */
+.nysf-day { box-sizing: border-box; display: inline-flex; flex-direction: column; align-items: center; justify-content: center; width: 128px; height: var(--row-height); padding: var(--space-10) 0; border: 0; border-radius: var(--radius-15); background: var(--tab); color: var(--on-tab); cursor: pointer; letter-spacing: 0.5px; text-align: center; }
+.nysf-day.is-selected { background: var(--tab-selected); color: var(--on-tab-selected); }
+.nysf-day-eyebrow { font-family: var(--font-body); font-weight: 800; font-size: 13px; line-height: 16px; text-transform: uppercase; }
+.nysf-day-label { font-family: var(--font-display); font-weight: 400; font-size: 29px; line-height: 24px; }
+[data-theme="fairgrounds"] .nysf-day { height: 60px; padding: var(--space-16) 0; border-radius: var(--radius-4); }
+[data-theme="fairgrounds"] .nysf-day-eyebrow { font-weight: 600; font-size: 14px; line-height: 18px; text-transform: none; }
+[data-theme="fairgrounds"] .nysf-day-label { font-family: var(--font-body); font-weight: 700; font-size: 22.78px; line-height: 18px; }
+
+/* ---------- ResetButton ---------- */
+.nysf-reset { display: inline-flex; align-items: center; gap: var(--space-10); padding: var(--space-8) 0; border: 0; background: none; border-radius: var(--radius-10); color: var(--accent-subtle-500); cursor: pointer; font-family: var(--font-body); font-weight: 700; font-size: 16px; }
+.nysf-reset .nysf-glyph { width: 25px; height: 20px; }
+
+/* ---------- FavoriteButton ---------- */
+.nysf-fav { display: inline-flex; padding: 0; border: 0; background: none; cursor: pointer; color: var(--favorite-outline); }
+.nysf-fav.is-selected { color: var(--favorite); }
+.nysf-fav .nysf-glyph { width: 23.4px; height: 20.95px; }
+
+/* ---------- Toggle ---------- */
+.nysf-toggle { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: flex-start; width: 50px; height: 30px; padding: 5px var(--space-4); border: 0; border-radius: var(--radius-15); background: var(--toggle-track); cursor: pointer; }
+.nysf-toggle.is-on { justify-content: flex-end; }
+.nysf-toggle-knob { width: 22px; height: 20px; border-radius: var(--radius-10); background: var(--toggle-knob-off); }
+.nysf-toggle.is-on .nysf-toggle-knob { background: var(--toggle-knob-on); }
+
+/* ---------- TextField ---------- */
+.nysf-field { display: flex; flex-direction: column; gap: var(--space-10); width: 100%; }
+.nysf-field-label { font-family: var(--font-body); font-weight: 800; font-size: 13px; line-height: 16px; text-transform: uppercase; color: var(--signup-heading); }
+.nysf-field-input { box-sizing: border-box; width: 100%; height: var(--field-height); padding: 0 17px; border: 0; border-radius: var(--radius-4); background: var(--surface-input); color: var(--ink); font-family: var(--font-body); font-size: 16px; letter-spacing: 0.5px; }
+.nysf-field-input::placeholder { color: var(--ink-placeholder); opacity: 1; }
+.nysf-field-helper { margin: 0; font-family: var(--font-body); font-size: 12px; line-height: 16px; color: var(--ink); }
+[data-theme="fairgrounds"] .nysf-field { gap: 9px; }
+[data-theme="fairgrounds"] .nysf-field-label { font-weight: 700; font-size: 16px; line-height: 28px; letter-spacing: 0.5px; text-transform: none; color: var(--ink); }
+[data-theme="fairgrounds"] .nysf-field-input { height: 60px; padding: 0 var(--space-30); }
+
+/* ---------- SearchField ---------- */
+.nysf-search { box-sizing: border-box; display: flex; align-items: center; gap: var(--space-10); width: 220px; height: 52px; padding: 0 var(--space-20) 0 19px; border: 1px solid var(--input-border); border-radius: var(--radius-15); background: var(--surface-input); color: var(--search-ink); }
+.nysf-search.is-active { width: 100%; background: var(--surface-search-active); }
+.nysf-search-icon { color: var(--search-icon); display: inline-flex; }
+.nysf-search-icon .nysf-glyph { width: 23px; height: 23px; }
+.nysf-search-icon.nysf-only-fg-inline { display: none; }
+[data-theme="fairgrounds"] .nysf-search-icon.nysf-only-fg-inline { display: inline-flex; }
+[data-theme="fairgrounds"] .nysf-search-icon.nysf-only-fair-inline { display: none; }
+.nysf-search-input { flex: 1; min-width: 0; border: 0; background: none; padding: 0; color: var(--search-ink); font-family: var(--font-body); font-weight: 500; font-size: 16px; outline-offset: 4px; }
+.nysf-search-input::placeholder { color: var(--search-ink); opacity: 1; }
+.nysf-search-input::-webkit-search-cancel-button { display: none; }
+.nysf-search-clear { color: var(--search-icon); }
+.nysf-search-clear .nysf-glyph { width: 15px; height: 15px; }
+[data-theme="fairgrounds"] .nysf-search { width: 100%; height: var(--pill-height); padding: var(--space-8) var(--space-20) var(--space-8) var(--space-30); border-radius: var(--radius-pill); }
+[data-theme="fairgrounds"] .nysf-search-input { font-weight: 400; letter-spacing: 0.5px; }
+[data-theme="fairgrounds"] .nysf-search-icon .nysf-glyph { width: 39px; height: 39px; }
+[data-theme="fairgrounds"] .nysf-search-clear .nysf-glyph { width: 20px; height: 20px; }
+
+/* ---------- DropdownButton ---------- */
+.nysf-dropdown { display: flex; flex-direction: column; gap: var(--space-10); width: 100%; }
+.nysf-dropdown-trigger { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; width: 100%; height: var(--control-height); padding: 0 var(--space-25); border: 0; border-radius: var(--radius-15); background: var(--surface-block); color: var(--on-block); cursor: pointer; font-family: var(--font-body); font-weight: 700; font-size: 16px; }
+.nysf-dropdown-caret { width: 10px; height: 6px; color: var(--accent-subtle-500); }
+.nysf-dropdown.is-open .nysf-dropdown-trigger { background: var(--surface-block-active); }
+.nysf-dropdown.is-open .nysf-dropdown-caret { color: var(--ripe-lemon); }
+.nysf-dropdown-menu { list-style: none; margin: 0; display: flex; flex-direction: column; gap: var(--space-20); padding: var(--space-30) var(--space-25); border-radius: var(--radius-15); background: var(--surface-raised); }
+.nysf-dropdown-item { font-family: var(--font-body); font-weight: 700; font-size: 18px; line-height: 14.22px; color: var(--grey-900); cursor: pointer; }
+
+/* ---------- SignUp ---------- */
+.nysf-signup { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: var(--space-30); width: 100%; padding: 37px 33px 40px; border: 21px solid var(--signup-frame); background: var(--surface-signup); }
+.nysf-signup-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 32px; line-height: 24px; text-transform: uppercase; text-align: center; color: var(--signup-heading); }
+.nysf-signup-body { display: flex; flex-direction: column; align-items: center; gap: var(--space-24); width: 100%; max-width: 322px; }
+.nysf-signup .nysf-field-input { background: var(--surface-signup-input); }
+.nysf-signup .nysf-field-helper { color: var(--signup-ink); }
+[data-theme="fairgrounds"] .nysf-signup { align-items: center; padding: 47px 54px 67px; border: 0; }
+[data-theme="fairgrounds"] .nysf-signup-title { font-family: var(--font-fg-display); font-weight: 700; font-size: 31px; line-height: 40px; letter-spacing: 0.5px; }
+[data-theme="fairgrounds"] .nysf-signup-body { align-items: flex-start; }
+[data-theme="fairgrounds"] .nysf-signup .nysf-field-label { font-size: 12px; color: var(--signup-heading); }
+[data-theme="fairgrounds"] .nysf-signup .nysf-field-input { height: 56px; padding: 0 17px; }
+[data-theme="fairgrounds"] .nysf-signup .nysf-field-input::placeholder { color: var(--grey-600); }
+[data-theme="fairgrounds"] .nysf-signup .nysf-field-helper { font-size: 10px; line-height: 18px; letter-spacing: 0.5px; }
+
+/* ---------- AccordionMenu ---------- */
+.nysf-accordion { width: 100%; }
+.nysf-accordion-row { box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; width: 100%; height: var(--row-height); padding: 15px var(--space-38); border: 0; background: var(--surface-block); color: var(--on-block); cursor: pointer; font-family: var(--font-body); font-weight: 700; font-size: 16px; text-align: left; }
+.nysf-accordion-icon { color: var(--header-icon); width: 14px; }
+.nysf-accordion.is-open .nysf-accordion-row { height: auto; padding: 28px var(--space-38); background: var(--surface-header); color: var(--on-block); }
+.nysf-accordion-panel { box-sizing: border-box; min-height: 180px; padding: var(--space-30) var(--space-38); background: var(--surface-block-active); color: var(--on-block); font-family: var(--font-body); font-size: 14px; line-height: 20px; }
+
+/* ---------- NotificationCard ---------- */
+.nysf-notice { box-sizing: border-box; display: flex; flex-direction: column; gap: var(--space-20); width: 100%; padding: var(--space-30) var(--space-20); border-radius: var(--radius-10); background: var(--surface-raised); color: var(--ink); }
+.nysf-notice-head { display: flex; flex-direction: column; gap: var(--space-10); text-transform: uppercase; }
+.nysf-notice-date { margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 13px; line-height: 16px; }
+.nysf-notice-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 23px; line-height: 20px; }
+.nysf-notice-body { margin: 0; font-family: var(--font-body); font-size: 14px; line-height: 20px; }
+[data-theme="fairgrounds"] .nysf-notice-title { font-family: var(--font-fg-display); font-weight: 700; font-size: 22.78px; line-height: 28px; }
+
+/* ---------- MediaCard ---------- */
+.nysf-media { display: flex; flex-direction: column; gap: var(--space-24); width: 100%; color: var(--ink-secondary); }
+.nysf-media-image { position: relative; height: 200px; border-radius: var(--radius-10); overflow: hidden; background: var(--media-placeholder); }
+.nysf-media-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nysf-media-image.is-framed::after { content: ""; position: absolute; inset: 0; border: 5px solid var(--media-frame); border-radius: inherit; pointer-events: none; }
+.nysf-media-text { display: flex; flex-direction: column; gap: var(--space-12); }
+.nysf-media-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 29px; line-height: 24px; text-transform: capitalize; }
+.nysf-media-body { margin: 0; font-family: var(--font-body); font-size: 14px; line-height: 20px; }
+[data-theme="fairgrounds"] .nysf-media-image { border-radius: var(--radius-5); }
+[data-theme="fairgrounds"] .nysf-media-image.is-framed::after { display: none; }
+[data-theme="fairgrounds"] .nysf-media-title { font-family: var(--font-fg-display); font-weight: 700; font-size: 22.78px; line-height: 28px; text-transform: none; }
+
+/* ---------- ListMediaCard / ListCard (sit on surface-header or surface-block) ---------- */
+.nysf-listmedia { display: flex; align-items: flex-start; gap: var(--space-16); width: 100%; color: var(--on-block-strong); }
+.nysf-listmedia-thumb { flex: none; width: 100px; height: 100px; border-radius: 6px; overflow: hidden; background: var(--media-placeholder); }
+.nysf-listmedia-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nysf-listmedia-text, .nysf-listcard-text { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: var(--space-10); }
+.nysf-listmedia-eyebrow { margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 13px; line-height: 16px; text-transform: uppercase; }
+.nysf-listmedia-title, .nysf-listcard-title { margin: 0; font-family: var(--font-body); font-weight: 800; font-size: 20px; line-height: 24px; text-transform: capitalize; }
+.nysf-listmedia-meta { margin: 0; font-family: var(--font-body); font-size: 14px; line-height: 20px; }
+.nysf-listcard { display: flex; align-items: flex-start; gap: var(--space-30); width: 100%; color: var(--on-block-strong); }
+.nysf-listcard-text { gap: 11px; }
+.nysf-listcard-time { margin: 0; font-family: var(--font-body); font-weight: 700; font-size: 14px; line-height: 20px; }
+.nysf-listcard-location { margin: 0; font-family: var(--font-body); font-weight: 700; font-size: 13px; line-height: 16px; }
+
+/* ---------- EventPost ---------- */
+.nysf-post { display: flex; flex-direction: column; gap: var(--space-20); width: 100%; color: var(--ink-secondary); text-decoration: none; }
+.nysf-post-image { position: relative; height: 285px; border-radius: var(--radius-5); overflow: hidden; background: var(--media-placeholder); }
+.nysf-post-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.nysf-post-fav { position: absolute; top: 20px; right: 20px; color: var(--grey-50); }
+.nysf-post-fav.is-selected { color: var(--favorite); }
+.nysf-post-text { display: flex; flex-direction: column; gap: var(--space-12); letter-spacing: 0.5px; }
+.nysf-post-date { margin: 0; font-family: var(--font-body); font-weight: 600; font-size: 14px; line-height: 22.78px; }
+.nysf-post-title { margin: 0; font-family: var(--font-body); font-weight: 700; font-size: 14.22px; line-height: 22.78px; }
+
+/* ---------- FollowUs ---------- */
+.nysf-follow { box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: var(--space-30); width: 100%; padding: var(--space-40) 0; background: var(--surface-footer); }
+.nysf-follow-title { margin: 0; font-family: var(--font-display); font-weight: 400; font-size: 20px; line-height: 20px; text-transform: uppercase; color: var(--on-footer); }
+.nysf-follow-icons { color: var(--footer-icon); }
+.nysf-follow-icons svg { width: 227px; height: 40px; }
+[data-theme="fairgrounds"] .nysf-follow-title { font-family: var(--font-body); font-weight: 900; font-size: 14.22px; line-height: 20px; }
+
+/* Hearts on list rows sit on a dark ground on both sides. */
+.nysf-listmedia .nysf-fav:not(.is-selected), .nysf-listcard .nysf-fav:not(.is-selected) { color: var(--accent-subtle-500); }
