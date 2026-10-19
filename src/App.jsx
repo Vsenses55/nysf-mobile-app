@@ -31,13 +31,19 @@ function Preloader() {
   const { pathname } = useLocation();
   // Runs once, after the first screen renders.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => preloadAssets(pathname), []);
+  useEffect(() => {
+    preloadAssets(pathname);
+  }, []);
   return null;
 }
 
 function ScrollToTop() {
   const { pathname } = useLocation();
-  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  // Braces matter: newer Chrome returns a Promise from scrollTo, and React would
+  // try to call an implicitly returned value as the effect cleanup.
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   return null;
 }
 

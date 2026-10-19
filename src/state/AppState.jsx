@@ -28,8 +28,12 @@ export function AppStateProvider({ children }) {
   const [toast, setToast] = useState(null);
   const toastTimer = useRef(null);
 
-  useEffect(() => save('nysf.favorites', [...favorites]), [favorites]);
-  useEffect(() => save('nysf.notifications', notifications), [notifications]);
+  useEffect(() => {
+    save('nysf.favorites', [...favorites]);
+  }, [favorites]);
+  useEffect(() => {
+    save('nysf.notifications', notifications);
+  }, [notifications]);
 
   const toggleFavorite = useCallback((id) => {
     setFavorites((prev) => {
