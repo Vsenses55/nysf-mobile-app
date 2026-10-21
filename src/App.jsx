@@ -43,46 +43,50 @@ function ScrollToTop() {
   // try to call an implicitly returned value as the effect cleanup.
   useEffect(() => {
     window.scrollTo(0, 0);
+    // On desktop the app scrolls inside its phone frame instead of the window.
+    document.querySelector('.app')?.scrollTo(0, 0);
   }, [pathname]);
   return null;
 }
 
 export default function App() {
   return (
-    <div className="app">
-      <ScrollToTop />
-      <Preloader />
-      <Routes>
-        <Route path="/" element={<Start />} />
+    <div className="device">
+      <div className="app">
+        <ScrollToTop />
+        <Preloader />
+        <Routes>
+          <Route path="/" element={<Start />} />
 
-        <Route path="/fair" element={<FairHome />} />
-        <Route path="/fair/tickets" element={<BuyTickets />} />
-        <Route path="/fair/map" element={<InteractiveMap />} />
-        <Route path="/fair/schedule" element={<DailySchedule />} />
-        <Route path="/fair/concerts" element={<Concerts />} />
-        <Route path="/fair/updates" element={<RealTimeUpdates />} />
-        <Route path="/fair/activities" element={<Activities />} />
-        <Route path="/fair/activities/:id" element={<Placeholder theme="fair" backTo="/fair/activities" />} />
-        <Route path="/fair/plan" element={<PlanYourVisit />} />
-        <Route path="/fair/plan/directions" element={<Directions />} />
-        <Route path="/fair/plan/parking" element={<Parking />} />
-        <Route path="/fair/plan/faqs" element={<Faqs />} />
-        <Route path="/fair/news" element={<News />} />
-        <Route path="/fair/news/:id" element={<NewsDetail />} />
-        <Route path="/fair/favorites" element={<Favorites />} />
-        <Route path="/fair/:id" element={<Placeholder theme="fair" />} />
+          <Route path="/fair" element={<FairHome />} />
+          <Route path="/fair/tickets" element={<BuyTickets />} />
+          <Route path="/fair/map" element={<InteractiveMap />} />
+          <Route path="/fair/schedule" element={<DailySchedule />} />
+          <Route path="/fair/concerts" element={<Concerts />} />
+          <Route path="/fair/updates" element={<RealTimeUpdates />} />
+          <Route path="/fair/activities" element={<Activities />} />
+          <Route path="/fair/activities/:id" element={<Placeholder theme="fair" backTo="/fair/activities" />} />
+          <Route path="/fair/plan" element={<PlanYourVisit />} />
+          <Route path="/fair/plan/directions" element={<Directions />} />
+          <Route path="/fair/plan/parking" element={<Parking />} />
+          <Route path="/fair/plan/faqs" element={<Faqs />} />
+          <Route path="/fair/news" element={<News />} />
+          <Route path="/fair/news/:id" element={<NewsDetail />} />
+          <Route path="/fair/favorites" element={<Favorites />} />
+          <Route path="/fair/:id" element={<Placeholder theme="fair" />} />
 
-        <Route path="/fairgrounds" element={<FgHome />} />
-        <Route path="/fairgrounds/events" element={<UpcomingEvents />} />
-        <Route path="/fairgrounds/events/:id" element={<EventDetail />} />
-        <Route path="/fairgrounds/venues" element={<Venues />} />
-        <Route path="/fairgrounds/venues/:id" element={<VenueDetail />} />
-        <Route path="/fairgrounds/rentals" element={<RentalOpportunities />} />
-        <Route path="/fairgrounds/:id" element={<Placeholder theme="fairgrounds" />} />
+          <Route path="/fairgrounds" element={<FgHome />} />
+          <Route path="/fairgrounds/events" element={<UpcomingEvents />} />
+          <Route path="/fairgrounds/events/:id" element={<EventDetail />} />
+          <Route path="/fairgrounds/venues" element={<Venues />} />
+          <Route path="/fairgrounds/venues/:id" element={<VenueDetail />} />
+          <Route path="/fairgrounds/rentals" element={<RentalOpportunities />} />
+          <Route path="/fairgrounds/:id" element={<Placeholder theme="fairgrounds" />} />
 
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-      <Toast />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+        <Toast />
+      </div>
     </div>
   );
 }

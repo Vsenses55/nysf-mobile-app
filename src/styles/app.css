@@ -27,7 +27,7 @@ h1, h2, h3, p { margin: 0; }
   position: relative;
   width: 100%;
   max-width: var(--app-max);
-  min-height: 100dvh;
+  min-height: var(--app-h);
   margin: 0 auto;
   overflow-x: clip;
   background: var(--fg-dark);
@@ -37,7 +37,7 @@ h1, h2, h3, p { margin: 0; }
 .screen {
   display: flex;
   flex-direction: column;
-  min-height: 100dvh;
+  min-height: var(--app-h);
   background: var(--surface-page);
 }
 .screen-bar { position: sticky; top: 0; z-index: 20; }
@@ -70,7 +70,7 @@ h1, h2, h3, p { margin: 0; }
   flex-direction: column;
   justify-content: center;
   gap: 15px;
-  min-height: 100dvh;
+  min-height: var(--app-h);
   padding: 21px var(--space-20);
   background: var(--fg-dark);
 }
@@ -603,7 +603,7 @@ h1, h2, h3, p { margin: 0; }
   flex: 1;
   margin-top: var(--space-20);
   min-height: 420px;
-  height: calc(100dvh - 80px - 170px);
+  height: calc(var(--app-h) - 80px - 170px);
   background: #e6f6df;
   overflow: hidden;
 }
@@ -680,4 +680,37 @@ h1, h2, h3, p { margin: 0; }
 :root { --app-max: 100%; }
 @media (min-width: 600px) and (min-height: 500px) {
   :root { --app-max: var(--screen-width); }
+}
+
+/* ---------- Desktop: the app sits in a phone-sized frame ----------
+   On phones the page scrolls normally and fills the screen. From tablet width
+   up, .device becomes a 430×932 frame (shrinking to fit shorter windows) and
+   .app scrolls inside it, so the prototype reads like a phone. .device has a
+   transform so fixed-position layers (menu, sheets, toast) stay inside it. */
+:root { --app-h: 100dvh; }
+@media (min-width: 600px) and (min-height: 500px) {
+  :root { --app-h: min(932px, calc(100dvh - 48px)); }
+  body { display: flex; align-items: center; justify-content: center; min-height: 100dvh; }
+  .device {
+    position: relative;
+    width: var(--screen-width);
+    height: var(--app-h);
+    border-radius: 36px;
+    overflow: hidden;
+    transform: translateZ(0);
+    box-shadow: 0 0 0 10px #05080a, 0 0 0 11px #2a3338, 0 30px 80px rgba(0, 0, 0, .55);
+  }
+  .device > .app {
+    height: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    overscroll-behavior: contain;
+    scrollbar-width: none;
+  }
+  .device > .app::-webkit-scrollbar { display: none; }
+  .menu { top: 0; bottom: 0; max-width: none; }
+  /* Fixed layers are pinned to the phone frame (the transform on .device makes
+     it their containing block); size the sheet backdrop to the frame exactly. */
+  .sheet-backdrop { inset: auto; top: 0; left: 0; width: 100%; height: var(--app-h); }
 }
